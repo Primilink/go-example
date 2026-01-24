@@ -59,6 +59,51 @@ go run main.go
 | [14-http-server](./14-http-server) | HTTP Server | `net/http`, handlers, middleware, graceful shutdown |
 | [15-grpc](./15-grpc) | gRPC | Protocol buffers, streaming, interceptors, performance tips |
 
+## Practical Examples
+
+Real-world integrations demonstrating Go with external services.
+
+### OpenAI Integration
+
+| Example | Description | Features |
+|---------|-------------|----------|
+| [openai-stream-chat](./openai-stream-chat) | Interactive chat with GPT | Streaming responses, conversation history |
+| [openai-stream-chat-with-tools](./openai-stream-chat-with-tools) | Chat with function calling | Tool definitions, math operations, streaming |
+
+```bash
+export OPENAI_API_KEY=your-key
+cd openai-stream-chat
+go run main.go
+```
+
+### Database CLIs
+
+Three identical CLI apps demonstrating Go with different databases. Each app:
+- Stores input text as key, reversed string as value
+- Shows a table after each operation
+- Deletes entry if key already exists
+- Cleans up all entries on Ctrl+C
+
+| Example | Database | Driver |
+|---------|----------|--------|
+| [redis-reverse-cli](./redis-reverse-cli) | Redis | `go-redis/v9` |
+| [postgres-reverse-cli](./postgres-reverse-cli) | PostgreSQL | `pgx/v5` |
+| [mongo-reverse-cli](./mongo-reverse-cli) | MongoDB | `mongo-driver` |
+
+```bash
+# Start database (pick one)
+docker run -d -p 6379:6379 redis
+docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=postgres postgres
+docker run -d -p 27017:27017 mongo
+
+# Run corresponding CLI
+cd redis-reverse-cli && go run main.go
+cd postgres-reverse-cli && go run main.go
+cd mongo-reverse-cli && go run main.go
+```
+
+---
+
 ## Benchmarks
 
 Real-world performance comparison between Go, Node.js, and PHP.
@@ -111,6 +156,7 @@ go-example/
 ├── BENCHMARK_RESULTS.md
 ├── go-learning-roadmap.md
 │
+│── Lessons ──────────────────────────
 ├── 01-hello-world/
 ├── 02-variables-and-types/
 ├── 03-control-flow/
@@ -127,6 +173,14 @@ go-example/
 ├── 14-http-server/
 ├── 15-grpc/
 │
+│── Practical Examples ───────────────
+├── openai-stream-chat/           # OpenAI chat with streaming
+├── openai-stream-chat-with-tools/ # OpenAI chat with function calling
+├── redis-reverse-cli/            # Redis CLI example
+├── postgres-reverse-cli/         # PostgreSQL CLI example
+├── mongo-reverse-cli/            # MongoDB CLI example
+│
+│── Benchmarks ───────────────────────
 ├── benchmark/              # Go server (with goroutines)
 ├── benchmark-optimized/    # Go server (pre-calculated)
 ├── benchmark-node/         # Node.js server
@@ -136,8 +190,10 @@ go-example/
 ## Prerequisites
 
 - **Go 1.22+** - [Installation guide](https://go.dev/doc/install)
+- **Docker** (optional, for database examples and benchmarks)
 - **Node.js** (optional, for benchmarks)
 - **PHP 8.1+** (optional, for benchmarks)
+- **OpenAI API Key** (optional, for OpenAI examples)
 
 ## Resources
 
